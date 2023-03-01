@@ -190,6 +190,25 @@ class StudentService
         }
     }
 
+    public function studentUpcomingClasses(array $data)
+    {
+        try 
+        {
+            $classes = $this->studentRepository->studentUpcomingClasses(Auth::user()->id,$data);
+            if($classes)
+            {
+                return new SessionCollection($classes);
+            }
+            else
+            {
+                return "invalid Entry";
+            }
+        } catch (Exception $e) {
+            dd($e);
+            abort(500, Response::server_error());
+        }
+    }
+
     public function studentPastClasses(array $data)
     {
         try 

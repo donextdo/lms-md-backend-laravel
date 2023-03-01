@@ -190,6 +190,38 @@ class StudentRepository implements StudentRepositoryInterface
        } 
        return $sessions;
     }
+    
+    public function studentUpcomingClasses(int $userId,array $data)
+    {
+      $sessions=[]; 
+       foreach($this->student::where('user_id',$userId)->first()->classes as $class)
+       {
+        
+         foreach($class->sessions->where('date','>',Carbon::today()) as $session)
+         {
+            if(DB::table('session_student')->
+            where('student_id',$this->student::where('user_id',$userId)->first()->id)
+            ->where('session_id',$session->id)->exists())
+            {
+             $session['attended']=true;   
+            }
+            else{
+                $session['attended']=false;   
+
+            }
+            $session['tutor']=$class->tutor->user->name;
+            $session['subject']=$class->subject->name;  
+          $sessions[]=$session;
+         }
+       }
+       if (array_key_exists('paginate', $data) && $data['paginate'])
+       {
+        $sessions=collect($sessions)->paginate($data['per-page'] ?? 10);
+
+       } 
+       return $sessions;
+    }
+
     public function requests(array $data)
     {
         if (array_key_exists('paginate', $data) && $data['paginate']) {

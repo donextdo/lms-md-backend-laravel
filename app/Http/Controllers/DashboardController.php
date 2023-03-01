@@ -60,7 +60,7 @@ class DashboardController extends Controller
     {
       $data=['per-page'=>2,'paginate'=>true];
       $recordings = $this->student->studentPastClasses($data);
-      $classes = $this->student->studentClasses($data);
+      $classes = $this->student->studentUpcomingClasses($data);
       $messages = $this->student->studentInbox();
       $response=['recordings'=>$recordings,'classes'=>$classes,'messages'=>$messages];
       return $this->sendResponse($response, 'Classes  shown  successfully.'); 
