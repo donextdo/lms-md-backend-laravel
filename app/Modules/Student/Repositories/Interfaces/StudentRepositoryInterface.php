@@ -24,6 +24,10 @@ interface StudentRepositoryInterface
 
     public function studentClasses(int $id,array $data);
 
+    public function studentPastClasses(int $id,array $data);
+
+    public function studentUpcomingClasses(int $id,array $data);
+
     public function requests(array $data);
 
     public function requestDetails(int $id);

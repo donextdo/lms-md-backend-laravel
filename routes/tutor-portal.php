@@ -36,5 +36,6 @@ Route::get('session/{id}', [SessionController::class, 'get'])->name('tutor.sessi
 Route::post('session/{id}', [SessionController::class, 'update'])->name('tutor.session.update');
 Route::delete('session/{id}', [SessionController::class, 'delete'])->name('tutor.session.delete');
 Route::put('recording/{id}', [SessionController::class, 'recording'])->name('tutor.session.recording');
+Route::get('sessionStatus/{class}/{student}', [StudentController::class, 'sessionStatus'])->name('admin.session.sessionStatus');
 
 Route::get('dashboard', [DashboardController::class, 'tutorDashboard'])->name('tutor.dashboard');

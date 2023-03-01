@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Contracts\Validation\Validator as ValidationValidator;
 use File;
 use ZipArchive;
+use Illuminate\Support\Facades\Storage;
 
 class SessionController extends Controller
 {
@@ -87,8 +88,11 @@ class SessionController extends Controller
         $zip = new ZipArchive;
 
         $fileName = 'my-images.zip';
-
-        if ($zip->open(public_path($fileName), ZipArchive::CREATE) === TRUE) {
+        if(File::exists(public_path($fileName)))
+        {
+            File::delete(public_path($fileName));
+        }
+        if ($zip->open(public_path($fileName),ZipArchive::CREATE) === TRUE) {
 
             $files = File::files(public_path('Class_Notes'));
 
@@ -104,7 +108,7 @@ class SessionController extends Controller
             $zip->close();
         }
         
-        return response()->download(public_path($fileName))->withHeaders('Content-Disposition: attachment');
+return response()->download(public_path($fileName), $fileName, [    'Content-Disposition' => 'attachment; filename="' . $fileName . '"']);
 
     }
    
