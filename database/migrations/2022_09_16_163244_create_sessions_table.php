@@ -19,7 +19,7 @@ class CreateSessionsTable extends Migration
             $table->foreignId('class1_id')->constrained();
             $table->string('title');
             $table->date('date');
-            $table->timeTZ('time');
+            $table->string('time');
             $table->string('description')->nullable();
             $table->string('recording_link')->nullable();
             $table->softDeletes($column = 'deleted_at', $precision = 0);

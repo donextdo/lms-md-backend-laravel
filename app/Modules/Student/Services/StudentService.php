@@ -223,7 +223,6 @@ class StudentService
                 return "invalid Entry";
             }
         } catch (Exception $e) {
-            dd($e);
             abort(500, Response::server_error());
         }
     }
